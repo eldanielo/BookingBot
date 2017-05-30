@@ -21,14 +21,15 @@ namespace QnAMakerDialog.Sample.Dialogs
         {
             var message = await result;
 
-            if (message.Text.All(Char.IsLetter))
+            if (message.Text.All(Char.IsNumber))
             {
+                context.Done(true);
+               
+            }
+            else {
                 //assume name entered
                 await context.PostAsync("Bitte geben Sie ihre Email Adresse an");
                 context.Wait(this.EmailMessageReceivedAsync);
-            }
-            else {
-                context.Done(true);
             }
 
 
