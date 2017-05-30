@@ -9,7 +9,14 @@ namespace QnAMakerDialog.Sample.Dialogs
     [QnAMakerService("975b91a189dd4a878543d802c976e94a", "ff127d71-818b-4c6a-8c6a-debd0633fab0")]
     public class QnADialog : QnAMakerDialog<object>
     {
-
+        /// <summary>
+        /// Handler used when the QnAMaker finds no appropriate answer
+        /// </summary>
+        public override async Task NoMatchHandler(IDialogContext context, string originalQueryText)
+        {
+            await context.PostAsync($"Ich konnte leider keine Antwort auf Ihre Frage finden: '{originalQueryText}'.");
+            context.Wait(MessageReceived);
+        }
 
         /// <summary>
         /// This is the default handler used if no specific applicable score handlers are found
